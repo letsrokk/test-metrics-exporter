@@ -3,6 +3,8 @@ package cucumber.runtime.formatter;
 import cucumber.api.Result;
 import cucumber.api.event.*;
 import cucumber.api.formatter.Formatter;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.influxdb.InfluxDB;
 import org.influxdb.InfluxDBFactory;
 import org.influxdb.dto.BatchPoints;
@@ -15,6 +17,8 @@ import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicInteger;
 
 public class InfluxDBSummaryFormatter implements Formatter{
+
+    private Logger logger = LogManager.getLogger(InfluxDBSummaryFormatter.class);
 
     private final Properties influxdbProperties = new Properties();
 
@@ -51,14 +55,16 @@ public class InfluxDBSummaryFormatter implements Formatter{
 
     private void storeSummary(){
         File projectDir = new File(System.getProperty("user.dir"));
-        File summary = new File(projectDir.getAbsolutePath() + "/target/influxdb_summary.txt");
         try {
             influxdbProperties.load(this.getClass().getClassLoader().getResourceAsStream("influxdb-export.properties"));
 
             String suite_name = influxdbProperties.getProperty("suite.name", projectDir.getName());
+            logger.debug("Test Suite: " + suite_name);
 
             String influxdb_host = influxdbProperties.getProperty("influxdb.host");
             String influxdb_dbname = influxdbProperties.getProperty("influxdb.dbname");
+            logger.debug("InfluxDB Host: " + influxdb_host);
+            logger.debug("InfluxDB Name: " + influxdb_dbname);
 
             InfluxDB influxDB = InfluxDBFactory.connect("http://"+influxdb_host+":8086");
             influxDB.createDatabase(influxdb_dbname);
@@ -75,11 +81,12 @@ public class InfluxDBSummaryFormatter implements Formatter{
                     .addField("enabled", totalEnabled.get())
                     .addField("pending", totalUndefined.get())
                     .build();
+            logger.debug("Data Point: " + point1.toString());
 
             batchPoints.point(point1);
             influxDB.write(batchPoints);
         } catch (IOException e) {
-            e.printStackTrace();
+            logger.throwing(e);
         }
     }
 }
