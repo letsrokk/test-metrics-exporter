@@ -27,6 +27,12 @@
             <groupId>org.influxdb</groupId>
             <artifactId>influxdb-java</artifactId>
         </dependency>
+
+        <dependency>
+            <groupId>io.cucumber</groupId>
+            <artifactId>cucumber-testng</artifactId>
+            <scope>test</scope>
+        </dependency>
     </dependencies>
 
 </project>
