@@ -7,10 +7,11 @@
     <groupId>org.fxclub.qa</groupId>
     <artifactId>test-metrics-exporter</artifactId>
     <packaging>pom</packaging>
-    <version>0.0.1</version>
+    <version>0.0.2</version>
 
     <modules>
         <module>cucumber2-jvm-influxdb-export</module>
+        <module>testng-influxdb-export</module>
     </modules>
 
     <properties>
