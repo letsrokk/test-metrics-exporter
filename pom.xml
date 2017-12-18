@@ -14,6 +14,9 @@
     </modules>
 
     <properties>
+        <project.jdk.version>1.8</project.jdk.version>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <maven.compiler.plugin.version>3.5.1</maven.compiler.plugin.version>
         <cucumber.version>2.1.0</cucumber.version>
     </properties>
 
@@ -56,4 +59,18 @@
         </dependencies>
     </dependencyManagement>
 
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>${maven.compiler.plugin.version}</version>
+                <configuration>
+                    <source>${project.jdk.version}</source>
+                    <target>${project.jdk.version}</target>
+                    <encoding>${project.build.sourceEncoding}</encoding>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
 </project>
