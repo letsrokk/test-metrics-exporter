@@ -1,4 +1,4 @@
-package cucumber.runtime.formatter;
+package org.fxclub.qa.cucumber.influxdb;
 
 import cucumber.api.Result;
 import cucumber.api.event.*;

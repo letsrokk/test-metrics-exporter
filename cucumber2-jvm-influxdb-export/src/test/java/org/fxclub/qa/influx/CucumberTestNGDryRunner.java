@@ -6,10 +6,10 @@ import cucumber.api.testng.AbstractTestNGCucumberTests;
 @CucumberOptions(
         dryRun = true,
         strict = true,
-        features = "src/test/resources/features/",
+        features = {"src/test/resources/features"},
         glue = "org.fxclub.qa.influx",
-        plugin = {"cucumber.runtime.formatter.InfluxDBSummaryFormatter"}
+        plugin = {"org.fxclub.qa.cucumber.influxdb.InfluxDBSummaryFormatter"}
 )
-public class RunCucumberTests extends AbstractTestNGCucumberTests {
+public class CucumberTestNGDryRunner extends AbstractTestNGCucumberTests {
 
 }

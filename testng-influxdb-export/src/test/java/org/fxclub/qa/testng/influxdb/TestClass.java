@@ -8,7 +8,6 @@ import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
 
-@Listeners(org.fxclub.qa.testng.influxdb.InfluxDBExportListener.class)
 public class TestClass {
 
     @Test
