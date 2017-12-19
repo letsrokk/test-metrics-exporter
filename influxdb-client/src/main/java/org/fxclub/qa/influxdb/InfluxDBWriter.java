@@ -26,7 +26,6 @@ public class InfluxDBWriter {
 
         batchPoints.point(point);
         influxDB.write(batchPoints);
-        influxDB.flush();
         influxDB.close();
     }
 
