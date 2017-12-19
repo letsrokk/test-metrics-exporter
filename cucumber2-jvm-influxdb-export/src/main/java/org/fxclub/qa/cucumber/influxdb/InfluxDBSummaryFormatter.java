@@ -58,6 +58,9 @@ public class InfluxDBSummaryFormatter implements Formatter{
         try {
             influxdbProperties.load(this.getClass().getClassLoader().getResourceAsStream("influxdb-export.properties"));
 
+            String project_name = influxdbProperties.getProperty("project.name", projectDir.getName());
+            logger.debug("Project Name: " + project_name);
+
             String suite_name = influxdbProperties.getProperty("suite.name", projectDir.getName());
             logger.debug("Test Suite: " + suite_name);
 
@@ -71,12 +74,13 @@ public class InfluxDBSummaryFormatter implements Formatter{
 
             BatchPoints batchPoints = BatchPoints
                     .database(influxdb_dbname)
-                    .tag("suite_name", suite_name)
                     .consistency(InfluxDB.ConsistencyLevel.ALL)
                     .build();
 
             Point point1 = Point.measurement("suite_stats")
                     .time(System.currentTimeMillis(), TimeUnit.MILLISECONDS)
+                    .tag("project_name", project_name)
+                    .tag("suite_name", suite_name)
                     .addField("total", totalStarted.get())
                     .addField("enabled", totalEnabled.get())
                     .addField("pending", totalUndefined.get())
