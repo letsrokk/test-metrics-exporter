@@ -1,4 +1,4 @@
-package org.fxclub.qa.influx;
+package org.fxclub.qa.cucumber.influxdb;
 
 import cucumber.api.DataTable;
 import cucumber.api.java.en.Given;

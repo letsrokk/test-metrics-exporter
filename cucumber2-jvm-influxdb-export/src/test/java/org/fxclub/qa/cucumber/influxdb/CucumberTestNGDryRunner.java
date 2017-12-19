@@ -1,4 +1,4 @@
-package org.fxclub.qa.influx;
+package org.fxclub.qa.cucumber.influxdb;
 
 import cucumber.api.CucumberOptions;
 import cucumber.api.testng.AbstractTestNGCucumberTests;
@@ -7,7 +7,6 @@ import cucumber.api.testng.AbstractTestNGCucumberTests;
         dryRun = true,
         strict = true,
         features = {"src/test/resources/features"},
-        glue = "org.fxclub.qa.influx",
         plugin = {"org.fxclub.qa.cucumber.influxdb.InfluxDBSummaryFormatter"}
 )
 public class CucumberTestNGDryRunner extends AbstractTestNGCucumberTests {
