@@ -75,7 +75,7 @@ public class InfluxDBExportListener implements IAnnotationTransformer3, ISuiteLi
             String project_name = influxdbProperties.getProperty("project.name", projectDir.getName());
             logger.debug("Project Name: " + project_name);
 
-            String suite_name = influxdbProperties.getProperty("suite.name", projectDir.getName());
+            String suite_name = influxdbProperties.getProperty("suite.name", iSuite.getName());
             logger.debug("Test Suite: " + suite_name);
 
             String influxdb_host = influxdbProperties.getProperty("influxdb.host");
