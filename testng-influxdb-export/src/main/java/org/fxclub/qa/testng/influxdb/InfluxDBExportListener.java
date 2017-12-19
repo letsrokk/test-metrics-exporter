@@ -4,14 +4,13 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.fxclub.qa.influxdb.InfluxDBWriter;
 import org.influxdb.dto.Point;
-import org.testng.IAnnotationTransformer3;
-import org.testng.ISuite;
-import org.testng.ISuiteListener;
+import org.testng.*;
 import org.testng.annotations.*;
 
 import java.io.File;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Method;
+import java.util.List;
 import java.util.Properties;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -35,7 +34,7 @@ public class InfluxDBExportListener implements IAnnotationTransformer3, ISuiteLi
 
     @Override
     public void transform(IConfigurationAnnotation iConfigurationAnnotation, Class aClass, Constructor constructor, Method method) {
-
+        iConfigurationAnnotation.setEnabled(false);
     }
 
     @Override
@@ -50,6 +49,15 @@ public class InfluxDBExportListener implements IAnnotationTransformer3, ISuiteLi
 
     @Override
     public void transform(ITestAnnotation iTestAnnotation, Class aClass, Constructor constructor, Method method) {
+        if(method == null) { // ignore annotations on Classes
+            iTestAnnotation.setEnabled(false);
+            return;
+        }
+
+        if(!method.isAnnotationPresent(Test.class)) {
+            return;
+        }
+
         logger.debug(String.format(
                 "|%-8s| %s (%s)",
                 iTestAnnotation.getEnabled() ? "ENABLED" : "PENDING",
@@ -104,4 +112,5 @@ public class InfluxDBExportListener implements IAnnotationTransformer3, ISuiteLi
             logger.throwing(e);
         }
     }
+
 }

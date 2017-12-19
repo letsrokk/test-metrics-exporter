@@ -1,14 +1,23 @@
 package org.fxclub.qa.testng.influxdb;
 
-import org.testng.annotations.DataProvider;
-import org.testng.annotations.Listeners;
-import org.testng.annotations.Test;
+import org.testng.annotations.*;
 
 import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
 
-public class TestClass {
+@Test
+public class TestClass extends TestBase {
+
+    @BeforeSuite
+    public void beforeSuiteTestClass(){
+        System.out.println("EXECUTED: beforeSuiteTestClass");
+    }
+
+    @BeforeClass
+    public void beforeClass(){
+        System.out.println("EXECUTED: beforeClass");
+    }
 
     @Test
     public void testMethod1(){

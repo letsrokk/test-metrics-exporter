@@ -1,0 +1,15 @@
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="testng-influxdb-export" parallel="false" thread-count="10" preserve-order="true">
+	
+	<listeners>
+		<listener class-name="org.fxclub.qa.testng.influxdb.InfluxDBExportListener"/>
+	</listeners>
+	
+	<test name="Test Package" parallel="methods">
+		<packages>
+			<package name="org.fxclub.qa.testng.influxdb"/>
+		</packages>
+	</test>
+	
+</suite>
+
