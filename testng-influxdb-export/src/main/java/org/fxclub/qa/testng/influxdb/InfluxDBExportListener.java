@@ -50,8 +50,14 @@ public class InfluxDBExportListener implements IAnnotationTransformer3, ISuiteLi
 
     @Override
     public void transform(ITestAnnotation iTestAnnotation, Class aClass, Constructor constructor, Method method) {
-        totalStarted.incrementAndGet();
+        logger.debug(String.format(
+                "|%-8s| %s (%s)",
+                iTestAnnotation.getEnabled() ? "ENABLED" : "PENDING",
+                iTestAnnotation.getDescription(),
+                method.getName()
+        ));
 
+        totalStarted.incrementAndGet();
         if(iTestAnnotation.getEnabled()) {
             totalEnabled.incrementAndGet();
             iTestAnnotation.setEnabled(false);
