@@ -5,13 +5,10 @@ import cucumber.api.event.*;
 import cucumber.api.formatter.Formatter;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.influxdb.InfluxDB;
-import org.influxdb.InfluxDBFactory;
-import org.influxdb.dto.BatchPoints;
+import org.fxclub.qa.influxdb.InfluxDBWriter;
 import org.influxdb.dto.Point;
 
 import java.io.File;
-import java.io.IOException;
 import java.util.Properties;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -54,8 +51,9 @@ public class InfluxDBSummaryFormatter implements Formatter{
     }
 
     private void storeSummary(){
-        File projectDir = new File(System.getProperty("user.dir"));
         try {
+            File projectDir = new File(System.getProperty("user.dir"));
+
             influxdbProperties.load(this.getClass().getClassLoader().getResourceAsStream("influxdb-export.properties"));
 
             String project_name = influxdbProperties.getProperty("project.name", projectDir.getName());
@@ -69,14 +67,6 @@ public class InfluxDBSummaryFormatter implements Formatter{
             logger.debug("InfluxDB Host: " + influxdb_host);
             logger.debug("InfluxDB Name: " + influxdb_dbname);
 
-            InfluxDB influxDB = InfluxDBFactory.connect("http://"+influxdb_host+":8086");
-            influxDB.createDatabase(influxdb_dbname);
-
-            BatchPoints batchPoints = BatchPoints
-                    .database(influxdb_dbname)
-                    .consistency(InfluxDB.ConsistencyLevel.ALL)
-                    .build();
-
             Point point1 = Point.measurement("suite_stats")
                     .time(System.currentTimeMillis(), TimeUnit.MILLISECONDS)
                     .tag("project_name", project_name)
@@ -87,9 +77,8 @@ public class InfluxDBSummaryFormatter implements Formatter{
                     .build();
             logger.debug("Data Point: " + point1.toString());
 
-            batchPoints.point(point1);
-            influxDB.write(batchPoints);
-        } catch (IOException e) {
+            new InfluxDBWriter(influxdb_host, influxdb_dbname).writeSinglePoint(point1);
+        } catch (Exception e) {
             logger.throwing(e);
         }
     }

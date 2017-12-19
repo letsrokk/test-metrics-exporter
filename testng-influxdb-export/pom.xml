@@ -13,6 +13,12 @@
 
     <dependencies>
         <dependency>
+            <groupId>org.fxclub.qa</groupId>
+            <artifactId>influxdb-client</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+
+        <dependency>
             <groupId>org.apache.logging.log4j</groupId>
             <artifactId>log4j-core</artifactId>
         </dependency>
@@ -26,11 +32,6 @@
             <groupId>org.testng</groupId>
             <artifactId>testng</artifactId>
             <scope>provided</scope>
-        </dependency>
-
-        <dependency>
-            <groupId>org.influxdb</groupId>
-            <artifactId>influxdb-java</artifactId>
         </dependency>
     </dependencies>
 

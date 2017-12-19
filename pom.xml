@@ -12,6 +12,7 @@
     <modules>
         <module>cucumber2-jvm-influxdb-export</module>
         <module>testng-influxdb-export</module>
+        <module>influxdb-client</module>
     </modules>
 
     <properties>
