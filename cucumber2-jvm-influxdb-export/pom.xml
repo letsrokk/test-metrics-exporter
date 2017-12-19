@@ -44,11 +44,6 @@
             <artifactId>influxdb-java</artifactId>
         </dependency>
 
-        <dependency>
-            <groupId>org.fxclub.qa</groupId>
-            <artifactId>testng-influxdb-export</artifactId>
-            <version>${project.version}</version>
-        </dependency>
     </dependencies>
 
     <build>
