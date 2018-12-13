@@ -5,11 +5,15 @@
     <parent>
         <artifactId>test-metrics-exporter</artifactId>
         <groupId>org.fxclub.qa</groupId>
-        <version>0.0.7</version>
+        <version>0.1.0</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>cucumber2-jvm-influxdb-export</artifactId>
+    <artifactId>cucumber-jvm4-influxdb-export</artifactId>
+
+    <properties>
+        <cucumber.version>4.2.0</cucumber.version>
+    </properties>
 
     <dependencies>
         <dependency>
@@ -28,22 +32,30 @@
             <artifactId>log4j-api</artifactId>
         </dependency>
 
+        <!-- https://mvnrepository.com/artifact/io.cucumber/cucumber-core -->
         <dependency>
             <groupId>io.cucumber</groupId>
             <artifactId>cucumber-core</artifactId>
-            <scope>provided</scope>
-        </dependency>
-        <dependency>
-            <groupId>io.cucumber</groupId>
-            <artifactId>cucumber-java</artifactId>
+            <version>${cucumber.version}</version>
             <scope>provided</scope>
         </dependency>
 
+        <!-- https://mvnrepository.com/artifact/io.cucumber/cucumber-java -->
+        <dependency>
+            <groupId>io.cucumber</groupId>
+            <artifactId>cucumber-java</artifactId>
+            <version>${cucumber.version}</version>
+            <scope>provided</scope>
+        </dependency>
+
+        <!-- https://mvnrepository.com/artifact/io.cucumber/cucumber-testng -->
         <dependency>
             <groupId>io.cucumber</groupId>
             <artifactId>cucumber-testng</artifactId>
-            <scope>provided</scope>
+            <version>${cucumber.version}</version>
+            <scope>test</scope>
         </dependency>
+
     </dependencies>
 
     <build>
@@ -54,12 +66,6 @@
                 <version>2.20.1</version>
                 <configuration>
                     <testFailureIgnore>true</testFailureIgnore>
-                    <includes>
-                        <include>CucumberTestRunnerTest</include>
-                    </includes>
-                    <argLine>
-                        -Dcucumber.options="-g org.fxclub.qa.cucumber.influxdb"
-                    </argLine>
                 </configuration>
             </plugin>
         </plugins>
